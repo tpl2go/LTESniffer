@@ -548,7 +548,9 @@ bool LTESniffer_Core::run(){
 
   std::cout << "Destroyed Phy" << std::endl;
   if (args.input_file_name == ""){
+    #ifndef DISABLE_RF
     srsran_rf_close(&rf);
+    #endif
     //srsran_ue_dl_free(falcon_ue_dl.q);
     srsran_ue_sync_free(&ue_sync);
     srsran_ue_mib_free(&ue_mib);
