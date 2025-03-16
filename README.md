@@ -1,6 +1,15 @@
 
 # LTESniffer - An Open-source LTE Downlink/Uplink Eavesdropper
 
+A fork of LTESniffer with tweaks to enable compilation on Ubuntu 24.04.
+
+Key Changes:
+* dependency switched from srsran/srsRAN_4G to tpl2go/srsRAN2
+* removed `-Werror` 
+* upgraded cmake minimum version
+* updated installation instructions
+
+
 **LTESniffer** is An Open-source LTE Downlink/Uplink Eavesdropper 
 
 It first decodes the Physical Downlink Control Channel (PDCCH) to obtain the Downlink Control Informations (DCIs) and Radio Network Temporary Identifiers (RNTIs) of all active users. Using decoded DCIs and RNTIs, LTESniffer further decodes the Physical Downlink Shared Channel (PDSCH) and Physical Uplink Shared Channel (PUSCH) to retrieve uplink and downlink data traffic.
@@ -64,14 +73,19 @@ On the other hand, to sniff uplink traffic from smartphones to base stations, LT
 ## Installation
 **Important note: To avoid unexpected errors, please follow the following steps on Ubuntu 18.04/20.04/22.04.**
 
+**Important note v2: Instructions as tweaked below is verified to work on Ubuntu 24.04**
+
 **Dependencies**
 - **Important dependency**: [UHD][uhd] library version >= 4.0 must be installed in advance (recommend building from source). The following steps can be used on Ubuntu 18.04. Refer to UHD Manual for full installation guidance. 
 
 UHD dependencies:
 ```bash
 sudo apt update
-sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool \
-g++ git inetutils-tools libboost-all-dev libncurses5 libncurses5-dev libusb-1.0-0 libusb-1.0-0-dev \
+sudo apt install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool \
+g++ git inetutils-tools libboost-all-dev \
+# changed from libncurses5 \
+libncurses6 \
+libusb-1.0-0 libusb-1.0-0-dev \
 libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools \
 python3-ruamel.yaml
 ```
@@ -118,7 +132,7 @@ cd LTESniffer
 mkdir build
 cd build
 cmake ../
-make -j 4 (use 4 threads)
+make -j 4
 ```
 ## Usage
 LTESniffer has 3 main functions: 
